@@ -19,6 +19,7 @@ def item_detail(request, pk):
 		'updated_at': item.updated_at,
 	})
 
+
 @csrf_exempt
 def item_create(request):
 	if request.method == 'POST':
@@ -30,6 +31,7 @@ def item_create(request):
 		return JsonResponse({'id': item.id, 'name': item.name, 'description': item.description}, status=201)
 	return JsonResponse({'error': 'POST required'}, status=400)
 
+
 @csrf_exempt
 def item_update(request, pk):
 	item = get_object_or_404(Item, pk=pk)
@@ -40,6 +42,7 @@ def item_update(request, pk):
 		item.save()
 		return JsonResponse({'id': item.id, 'name': item.name, 'description': item.description})
 	return JsonResponse({'error': 'PUT required'}, status=400)
+
 
 @csrf_exempt
 def item_delete(request, pk):
