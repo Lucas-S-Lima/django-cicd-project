@@ -31,6 +31,9 @@ jobs:
           make lint
 
       - name: Tests
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: "True"
         run: |
           make test
 
