@@ -7,4 +7,4 @@ lint:
 	ruff check .
 
 test:
-	pytest
+	python -m pytest app/tests/test_items.py
