@@ -1,8 +1,5 @@
-
-# Pipeline de CI para Django com lint e testes
 name: Pipeline GitHub Actions
 
-# Executa em pull requests para todas as branches
 on:
   pull_request:
     branches: ['*']
