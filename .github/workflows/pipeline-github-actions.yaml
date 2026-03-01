@@ -1,0 +1,47 @@
+
+# Pipeline de CI para Django com lint e testes
+name: Pipeline GitHub Actions
+
+# Executa em pull requests para todas as branches
+on:
+  pull_request:
+    branches: ['*']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    timeout-minutes: 5
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Linter
+        run: |
+          make lint
+
+      - name: Tests
+        run: |
+          make test
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: Deploy to production
+        run: echo "Deploying to production..." 
